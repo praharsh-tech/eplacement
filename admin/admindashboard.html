@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 text-slate-800">
+
+  <!-- 🔝 NAVBAR -->
+  <header class="bg-white shadow px-6 py-3 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-blue-600">Admin Panel</h1>
+
+    <div class="flex items-center gap-4">
+      <span id="adminName" class="text-sm text-gray-600"></span>
+      <button id="logoutBtn"
+        class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">
+        Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN GRID -->
+  <div class="max-w-7xl mx-auto mt-6 grid grid-cols-12 gap-6 px-4">
+
+    <!-- 📊 LEFT SIDEBAR -->
+    <div class="col-span-3 space-y-6">
+
+      <div class="bg-white rounded-xl shadow p-5">
+        <h2 class="font-semibold text-lg mb-3">Dashboard</h2>
+        <p class="text-sm text-gray-500">Manage placements & students</p>
+      </div>
+
+      <!-- STATS -->
+      <div class="bg-white rounded-xl shadow p-5 space-y-3">
+        <h3 class="font-semibold text-gray-700">Stats</h3>
+
+        <div class="flex justify-between text-sm">
+          <span>Total Jobs</span>
+          <span id="totalJobs"></span>
+        </div>
+
+        <div class="flex justify-between text-sm">
+          <span>Total Applications</span>
+          <span id="totalApplications"></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 🧾 CENTER CONTENT -->
+    <div class="col-span-6 space-y-6">
+
+      <!-- ➕ ADD JOB -->
+      <div class="bg-white rounded-xl shadow p-5">
+        <h3 class="font-semibold text-lg mb-4">Add New Job</h3>
+
+        <form id="jobForm" class="space-y-3">
+
+          <input id="company" placeholder="Company Name"
+            class="w-full p-3 border rounded" required />
+
+          <input id="role" placeholder="Job Role"
+            class="w-full p-3 border rounded" required />
+
+          <input id="package" placeholder="Package (e.g. 6 LPA)"
+            class="w-full p-3 border rounded" required />
+
+          <button
+            class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+            Add Job
+          </button>
+
+        </form>
+      </div>
+
+      <!-- 📋 JOB LIST -->
+      <div class="bg-white rounded-xl shadow p-5">
+        <h3 class="font-semibold text-lg mb-4">All Jobs</h3>
+
+        <div id="jobsContainer" class="space-y-4">
+          <!-- Jobs will come here -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 📊 RIGHT PANEL -->
+    <div class="col-span-3 space-y-6">
+
+      <!-- INFO -->
+      <div class="bg-white rounded-xl shadow p-5">
+        <h3 class="font-semibold mb-3">Admin Tips</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li>✔ Add jobs regularly</li>
+          <li>✔ Monitor applications</li>
+          <li>✔ Keep data updated</li>
+        </ul>
+      </div>
+
+      <!-- QUICK ACTION -->
+      <div class="bg-white rounded-xl shadow p-5">
+        <h3 class="font-semibold mb-3">Quick Actions</h3>
+        <p class="text-sm text-gray-500">
+          Manage job postings and track student activity.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script src="admin.js"></script>
+
+</body>
+</html>
