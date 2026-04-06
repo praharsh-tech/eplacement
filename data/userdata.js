@@ -12,7 +12,7 @@ export const users = [
   {
     id: 100,
     role: "admin",
-    username: "admin",
+    username: "c",
     password: "admin123",
     name: "Placement Admin"
   }
