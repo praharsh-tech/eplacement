@@ -1,39 +1,75 @@
-import { users } from "../data/userdata";
+console.log("ADMIN JS RUNNING 🚀");
 
-// 🔐 LOAD USER
+// ===============================
+// 🔐 AUTH
+// ===============================
+import { users } from "../data/userdata.js";
+
 const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
-// 🚫 PROTECT ROUTE
 if (!user || user.role !== "admin") {
   window.location.href = "../index.html";
 }
 
-// 🎯 SET ADMIN NAME
 document.getElementById("adminName").innerText = "Hi, " + user.name;
+document.getElementById("adminNameCard").innerText = user.name;
 
-// 📦 LOAD DATA
+// ===============================
+// 📦 DATA
+// ===============================
 let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 let applications = JSON.parse(localStorage.getItem("applications")) || [];
 
-// ==========================
+// ===============================
 // 📊 STATS
-// ==========================
+// ===============================
 function updateStats() {
+  const students = users.filter(u => u.role === "student");
+
   document.getElementById("totalJobs").innerText = jobs.length;
   document.getElementById("totalApplications").innerText = applications.length;
+  document.getElementById("totalStudents").innerText = students.length;
+
+  // BIG DASHBOARD CARDS
+  document.getElementById("totalJobsBig").innerText = jobs.length;
+  document.getElementById("totalApplicationsBig").innerText = applications.length;
+  document.getElementById("totalStudentsBig").innerText = students.length;
 }
 
-// ==========================
+// ===============================
+// 🔁 TAB SWITCHING (MAIN FEATURE)
+// ===============================
+const tabs = document.querySelectorAll(".tabBtn");
+const views = document.querySelectorAll(".view");
+
+tabs.forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    // UI highlight
+    tabs.forEach(b => b.classList.remove("bg-blue-600", "text-white"));
+    tabs.forEach(b => b.classList.add("bg-white"));
+
+    btn.classList.add("bg-blue-600", "text-white");
+
+    const target = btn.dataset.tab;
+
+    // hide all
+    views.forEach(v => v.classList.add("hidden"));
+
+    // show selected
+    document.getElementById(target + "View").classList.remove("hidden");
+  });
+});
+
+// ===============================
 // 🎯 RENDER JOBS
-// ==========================
+// ===============================
 function renderJobs() {
   const container = document.getElementById("jobsContainer");
   container.innerHTML = "";
 
   if (jobs.length === 0) {
-    container.innerHTML = `
-      <p class="text-gray-500 text-sm">No jobs added yet</p>
-    `;
+    container.innerHTML = `<p class="text-gray-500 text-sm">No jobs added yet</p>`;
     return;
   }
 
@@ -42,19 +78,16 @@ function renderJobs() {
 
     card.className = `
       border p-4 rounded-lg flex justify-between items-center
-      transform hover:-translate-y-1 hover:shadow-lg transition
+      hover:shadow-lg transition hover:-translate-y-1
     `;
 
     card.innerHTML = `
       <div>
         <h4 class="font-semibold text-blue-600">${job.company}</h4>
-        <p class="text-sm text-gray-600">
-          ${job.role} | ₹${job.package}
-        </p>
+        <p class="text-sm text-gray-600">${job.role} | ₹${job.package}</p>
       </div>
 
-      <button 
-        class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600"
+      <button class="bg-red-500 text-white px-3 py-1 rounded text-sm"
         data-id="${job.id}">
         Delete
       </button>
@@ -64,28 +97,18 @@ function renderJobs() {
   });
 }
 
-// ==========================
+// ===============================
 // ➕ ADD JOB
-// ==========================
+// ===============================
 document.getElementById("jobForm").addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const company = document.getElementById("company").value.trim();
-  const role = document.getElementById("role").value.trim();
-  const jobpackage = document.getElementById("package").value.trim();
-  const description = document.getElementById("description").value.trim();
-
-  if (!company || !role || !jobpackage) {
-    alert("Fill all fields");
-    return;
-  }
-
   const newJob = {
     id: Date.now(),
-    company,
-    role,
-    jobpackage,
-    description
+    company: document.getElementById("company").value.trim(),
+    role: document.getElementById("role").value.trim(),
+    package: document.getElementById("package").value.trim(),
+    description: document.getElementById("description").value.trim()
   };
 
   jobs.push(newJob);
@@ -98,15 +121,15 @@ document.getElementById("jobForm").addEventListener("submit", (e) => {
   renderApplications();
 });
 
-// ==========================
+// ===============================
 // ❌ DELETE JOB
-// ==========================
+// ===============================
 document.getElementById("jobsContainer").addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON") {
-    const jobId = Number(e.target.dataset.id);
+    const id = Number(e.target.dataset.id);
 
-    jobs = jobs.filter(job => job.id !== jobId);
-    applications = applications.filter(app => app.jobId !== jobId);
+    jobs = jobs.filter(j => j.id !== id);
+    applications = applications.filter(a => a.jobId !== id);
 
     localStorage.setItem("jobs", JSON.stringify(jobs));
     localStorage.setItem("applications", JSON.stringify(applications));
@@ -117,47 +140,35 @@ document.getElementById("jobsContainer").addEventListener("click", (e) => {
   }
 });
 
-// ==========================
-// 📊 RENDER APPLICATIONS (FIXED)
-// ==========================
+// ===============================
+// 📄 APPLICATIONS
+// ===============================
 function renderApplications() {
   const container = document.getElementById("applicationsContainer");
   container.innerHTML = "";
 
   if (applications.length === 0) {
-    container.innerHTML = `
-      <p class="text-gray-500 text-sm">No applications yet</p>
-    `;
+    container.innerHTML = `<p class="text-gray-500 text-sm">No applications yet</p>`;
     return;
   }
 
   applications.forEach(app => {
     const job = jobs.find(j => j.id === app.jobId);
-
-    // ✅ FIXED: use imported users
     const student = users.find(u => u.id === app.userId);
-    const studentName = student ? student.name : "Unknown Student";
 
-    // 📄 CV
     const cv = localStorage.getItem("cv_" + app.userId);
 
     const card = document.createElement("div");
 
-    card.className = `
-      bg-white rounded-xl p-4 shadow
-      transform hover:-translate-y-1 hover:shadow-lg transition
-    `;
+    card.className = "bg-white rounded-xl p-4 shadow hover:shadow-lg transition";
 
     card.innerHTML = `
       <div class="flex justify-between items-center">
 
         <div>
-          <h4 class="font-semibold text-blue-600">${studentName}</h4>
+          <h4 class="font-semibold text-blue-600">${student?.name || "Unknown"}</h4>
           <p class="text-sm text-gray-600">
-            Applied for <strong>${job?.company || "Unknown Job"}</strong>
-          </p>
-          <p class="text-xs text-gray-400">
-            ${app.appliedAt || ""}
+            ${job?.company || "Deleted"} - ${job?.role || ""}
           </p>
         </div>
 
@@ -165,9 +176,9 @@ function renderApplications() {
           ${
             cv
               ? `<a href="${cv}" target="_blank"
-                   class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
-                   View CV
-                 </a>`
+                  class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
+                  CV
+                </a>`
               : `<span class="text-xs text-gray-400">No CV</span>`
           }
 
@@ -183,28 +194,17 @@ function renderApplications() {
   });
 }
 
-// ==========================
-// 🖱 DASHBOARD CLICK
-// ==========================
-const dashboardCard = document.getElementById("dashboardCard");
-
-if (dashboardCard) {
-  dashboardCard.addEventListener("click", () => {
-    alert("Dashboard clicked 📊");
-  });
-}
-
-// ==========================
+// ===============================
 // 🚪 LOGOUT
-// ==========================
+// ===============================
 document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.removeItem("loggedInUser");
   window.location.href = "../index.html";
 });
 
-// ==========================
-// 🚀 INITIAL LOAD
-// ==========================
+// ===============================
+// 🚀 INIT
+// ===============================
 renderJobs();
-updateStats();
 renderApplications();
+updateStats();
