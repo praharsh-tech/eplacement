@@ -8,6 +8,8 @@ export const users = [
     name: "Khushi Agrawal",
     dept: "CSE",
     cgpa: 8.5,
+    dob: "2004-05-12",   
+    gender: "Female", 
     pfp: new URL("../data/assets/khushi.jpeg", import.meta.url).href
   },
 
@@ -19,6 +21,8 @@ export const users = [
     name: "Dishika Zodape",
     dept: "CO",
     cgpa: 7.8,
+    dob: "2004-05-12",   
+    gender: "Female", 
     pfp: new URL("../data/assets/Dishika zodape.jpeg", import.meta.url).href
   },
 
@@ -30,6 +34,8 @@ export const users = [
     name: "JANHAVI CHAVRE",
     dept: "CO",
     cgpa: 8.9,
+    dob: "2004-05-12",   
+    gender: "Female", 
     pfp: new URL("../data/assets/Janhavichavre.jpeg", import.meta.url).href
   },
 
@@ -39,8 +45,10 @@ export const users = [
     username: "104",
     password: "123",
     name: "REVTI RAMTEKE",
-    dept: "CO",
+    dept: "CSE",
     cgpa: 7.2,
+    dob: "2004-05-12",        
+    gender: "Female", 
     pfp: new URL("../data/assets/RevtiRamteke.jpeg", import.meta.url).href
   },
 
@@ -52,6 +60,8 @@ export const users = [
     name: "SHRADDHA BHIVGADE",
     dept: "MECH",
     cgpa: 8.1,
+    dob: "2004-05-12",        
+    gender: "Female", 
     pfp: new URL("../data/assets/ShraddhaBhivgade.jpeg", import.meta.url).href
   },
 
@@ -63,6 +73,8 @@ export const users = [
     name: "TANISHKA PATIL",
     dept: "CIVIL",
     cgpa: 6.9,
+    dob: "2004-05-12",        // ✅ ADD
+    gender: "Female", 
     pfp: new URL("../data/assets/Tanishkapatil.jpeg", import.meta.url).href
   },
 
@@ -117,7 +129,7 @@ export const users = [
     username: "admin",
     password: "123",
     name: "PRASHANT RAHATE",
-    pfp: new URL("../data/assets/RahateSir.jpeg", import.meta.url).href
+    pfp: new URL("../data/assets/RahateSir.jpeg",import.meta.url).href
   }
 
 ];

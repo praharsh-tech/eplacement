@@ -6,6 +6,7 @@ console.log("ADMIN JS RUNNING");
 import { users } from "../data/Userdata.js";
 
 const user = JSON.parse(localStorage.getItem("loggedInUser"));
+document.getElementById("adminPfp").src = user.pfp;
 
 if (!user || user.role !== "admin") {
   window.location.href = "../index.html";
@@ -75,6 +76,7 @@ function renderJobs() {
 
   jobs.forEach(job => {
     const card = document.createElement("div");
+    const studentDept = user.dept;
 
     card.className = `
       border p-4 rounded-lg flex justify-between items-center
@@ -100,21 +102,33 @@ function renderJobs() {
 // ===============================
 // ADD JOB
 // ===============================
+
 document.getElementById("jobForm").addEventListener("submit", (e) => {
   e.preventDefault();
+// GET SELECTED DEPARTMENTS
+const deptChecks = document.querySelectorAll(".deptCheck");
+const selectedDepts = [];
+
+deptChecks.forEach(cb => {
+  if (cb.checked) {
+    selectedDepts.push(cb.value);
+  }
+});
 
   const newJob = {
     id: Date.now(),
     company: document.getElementById("company").value.trim(),
     role: document.getElementById("role").value.trim(),
     package: document.getElementById("package").value.trim(),
-    description: document.getElementById("description").value.trim()
+    description: document.getElementById("description").value.trim(),
+    eligibleDepts: selectedDepts 
   };
 
   jobs.push(newJob);
   localStorage.setItem("jobs", JSON.stringify(jobs));
 
   e.target.reset();
+  deptChecks.forEach(cb => cb.checked = false);
 
   renderJobs();
   updateStats();
@@ -163,32 +177,41 @@ function renderApplications() {
     card.className = "bg-white rounded-xl p-4 shadow hover:shadow-lg transition";
 
     card.innerHTML = `
-      <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center">
 
-        <div>
-          <h4 class="font-semibold text-blue-600">${student?.name || "Unknown"}</h4>
-          <p class="text-sm text-gray-600">
-            ${job?.company || "Deleted"} - ${job?.role || ""}
-          </p>
-        </div>
+    <div class="flex items-center gap-3">
 
-        <div class="flex gap-2">
-          ${
-            cv
-              ? `<a href="${cv}" target="_blank"
-                  class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
-                  CV
-                </a>`
-              : `<span class="text-xs text-gray-400">No CV</span>`
-          }
+      <img src="${student?.pfp || ''}" 
+           class="w-10 h-10 rounded-full object-cover border">
 
-          <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded">
-            Applied
-          </span>
-        </div>
-
+      <div>
+        <h4 class="font-semibold text-blue-600">
+          ${student?.name || "Unknown"}
+        </h4>
+        <p class="text-sm text-gray-600">
+          ${job?.company || "Deleted"} - ${job?.role || ""}
+        </p>
       </div>
-    `;
+
+    </div>
+
+    <div class="flex gap-2">
+      ${
+        cv
+          ? `<a href="${cv}" target="_blank"
+              class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
+              CV
+            </a>`
+          : `<span class="text-xs text-gray-400">No CV</span>`
+      }
+
+      <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded">
+        Applied
+      </span>
+    </div>
+
+  </div>
+`;
 
     container.appendChild(card);
   });
