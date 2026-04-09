@@ -3,7 +3,7 @@ console.log("ADMIN JS RUNNING");
 // ===============================
 // AUTH
 // ===============================
-import { users } from "../data/Userdata.js";
+import { users } from "../data/userdata.js";
 
 const user = JSON.parse(localStorage.getItem("loggedInUser"));
 document.getElementById("adminPfp").src = user.pfp;
