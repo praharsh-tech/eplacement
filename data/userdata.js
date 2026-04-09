@@ -8,8 +8,8 @@ export const users = [
     name: "Khushi Agrawal",
     dept: "CSE",
     cgpa: 8.5,
-    dob: "2004-05-12",   
-    gender: "Female", 
+    dob: "2004-05-12",
+    gender: "Female",
     pfp: new URL("../data/assets/khushi.jpeg", import.meta.url).href
   },
 
@@ -21,8 +21,8 @@ export const users = [
     name: "Dishika Zodape",
     dept: "CO",
     cgpa: 7.8,
-    dob: "2004-05-12",   
-    gender: "Female", 
+    dob: "2004-05-12",
+    gender: "Female",
     pfp: new URL("../data/assets/Dishika zodape.jpeg", import.meta.url).href
   },
 
@@ -31,11 +31,11 @@ export const users = [
     role: "student",
     username: "103",
     password: "123",
-    name: "JANHAVI CHAVRE",
+    name: "Janhavi Chavre",
     dept: "CO",
     cgpa: 8.9,
-    dob: "2004-05-12",   
-    gender: "Female", 
+    dob: "2004-05-12",
+    gender: "Female",
     pfp: new URL("../data/assets/Janhavichavre.jpeg", import.meta.url).href
   },
 
@@ -44,11 +44,11 @@ export const users = [
     role: "student",
     username: "104",
     password: "123",
-    name: "REVTI RAMTEKE",
+    name: "Revti Ramteke",
     dept: "CSE",
     cgpa: 7.2,
-    dob: "2004-05-12",        
-    gender: "Female", 
+    dob: "2004-05-12",
+    gender: "Female",
     pfp: new URL("../data/assets/RevtiRamteke.jpeg", import.meta.url).href
   },
 
@@ -57,11 +57,11 @@ export const users = [
     role: "student",
     username: "105",
     password: "123",
-    name: "SHRADDHA BHIVGADE",
+    name: "Shraddha Bhivgade",
     dept: "MECH",
     cgpa: 8.1,
-    dob: "2004-05-12",        
-    gender: "Female", 
+    dob: "2004-05-12",
+    gender: "Female",
     pfp: new URL("../data/assets/ShraddhaBhivgade.jpeg", import.meta.url).href
   },
 
@@ -70,11 +70,11 @@ export const users = [
     role: "student",
     username: "106",
     password: "123",
-    name: "TANISHKA PATIL",
+    name: "Tanishka Patil",
     dept: "CIVIL",
     cgpa: 6.9,
-    dob: "2004-05-12",        // ✅ ADD
-    gender: "Female", 
+    dob: "2004-05-12",
+    gender: "Female",
     pfp: new URL("../data/assets/Tanishkapatil.jpeg", import.meta.url).href
   },
 
@@ -86,6 +86,8 @@ export const users = [
     name: "Neha Joshi",
     dept: "CSE",
     cgpa: 9.1,
+    dob: "2004-05-12",
+    gender: "Female",
     pfp: "https://randomuser.me/api/portraits/women/21.jpg"
   },
 
@@ -97,6 +99,8 @@ export const users = [
     name: "Arjun Mehta",
     dept: "IT",
     cgpa: 8.3,
+    dob: "2004-05-12",
+    gender: "Male",
     pfp: "https://randomuser.me/api/portraits/men/11.jpg"
   },
 
@@ -108,6 +112,8 @@ export const users = [
     name: "Priya Deshmukh",
     dept: "ENTC",
     cgpa: 7.6,
+    dob: "2004-05-12",
+    gender: "Female",
     pfp: "https://randomuser.me/api/portraits/women/12.jpg"
   },
 
@@ -119,17 +125,18 @@ export const users = [
     name: "Karan Patel",
     dept: "CSE",
     cgpa: 8.7,
+    dob: "2004-05-12",
+    gender: "Male",
     pfp: "https://randomuser.me/api/portraits/men/22.jpg"
   },
 
-//  ADMIN
   {
     id: 100,
     role: "admin",
     username: "admin",
     password: "123",
-    name: "PRASHANT RAHATE",
-    pfp: new URL("../data/assets/RahateSir.jpeg",import.meta.url).href
+    name: "Prashant Rahate",
+    pfp: new URL("../data/assets/RahateSir.jpeg", import.meta.url).href
   }
 
 ];
