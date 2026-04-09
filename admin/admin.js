@@ -1,9 +1,9 @@
-console.log("ADMIN JS RUNNING 🚀");
+console.log("ADMIN JS RUNNING");
 
 // ===============================
-// 🔐 AUTH
+// AUTH
 // ===============================
-import { users } from "../data/userdata.js";
+import { users } from "../data/Userdata.js";
 
 const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
@@ -15,13 +15,13 @@ document.getElementById("adminName").innerText = "Hi, " + user.name;
 document.getElementById("adminNameCard").innerText = user.name;
 
 // ===============================
-// 📦 DATA
+// DATA
 // ===============================
 let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 let applications = JSON.parse(localStorage.getItem("applications")) || [];
 
 // ===============================
-// 📊 STATS
+// STATS
 // ===============================
 function updateStats() {
   const students = users.filter(u => u.role === "student");
@@ -37,7 +37,7 @@ function updateStats() {
 }
 
 // ===============================
-// 🔁 TAB SWITCHING (MAIN FEATURE)
+// TAB SWITCHING (MAIN FEATURE)
 // ===============================
 const tabs = document.querySelectorAll(".tabBtn");
 const views = document.querySelectorAll(".view");
@@ -62,7 +62,7 @@ tabs.forEach(btn => {
 });
 
 // ===============================
-// 🎯 RENDER JOBS
+// RENDER JOBS
 // ===============================
 function renderJobs() {
   const container = document.getElementById("jobsContainer");
@@ -98,7 +98,7 @@ function renderJobs() {
 }
 
 // ===============================
-// ➕ ADD JOB
+// ADD JOB
 // ===============================
 document.getElementById("jobForm").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -122,7 +122,7 @@ document.getElementById("jobForm").addEventListener("submit", (e) => {
 });
 
 // ===============================
-// ❌ DELETE JOB
+// DELETE JOB
 // ===============================
 document.getElementById("jobsContainer").addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON") {
@@ -141,7 +141,7 @@ document.getElementById("jobsContainer").addEventListener("click", (e) => {
 });
 
 // ===============================
-// 📄 APPLICATIONS
+//  APPLICATIONS
 // ===============================
 function renderApplications() {
   const container = document.getElementById("applicationsContainer");
@@ -195,7 +195,7 @@ function renderApplications() {
 }
 
 // ===============================
-// 🚪 LOGOUT
+// LOGOUT
 // ===============================
 document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.removeItem("loggedInUser");
@@ -203,7 +203,7 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 });
 
 // ===============================
-// 🚀 INIT
+// INIT
 // ===============================
 renderJobs();
 renderApplications();

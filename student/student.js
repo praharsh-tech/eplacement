@@ -1,22 +1,22 @@
-// 🔐 LOAD USER
+//  LOAD USER
 const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
-// 🚫 PROTECT ROUTE
+// PROTECT ROUTE
 if (!user || user.role !== "student") {
   window.location.href = "../index.html";
 }
 
-// 🎯 SET USER DATA
+//  SET USER DATA
 document.getElementById("welcome").innerText = "Hi, " + user.name;
 document.getElementById("name").innerText = user.name;
 document.getElementById("dept").innerText = user.dept;
 document.getElementById("cgpa").innerText = user.cgpa;
 
-// ✅ FIXED PHOTO
+//  FIXED PHOTO
 document.getElementById("photo").src =
-  user.pfp || "https://via.placeholder.com/150";
+  user.pfp;
 
-// 📦 LOAD APPLICATIONS
+//  LOAD APPLICATIONS
 let applications = JSON.parse(localStorage.getItem("applications")) || [];
 let myApps = applications.filter(app => app.userId === user.id);
 
@@ -25,11 +25,11 @@ document.getElementById("applications").innerText = myApps.length;
 document.getElementById("status").innerText =
   myApps.length > 0 ? "Applied" : "Not Applied";
 
-// 📢 ANNOUNCEMENT
+//  ANNOUNCEMENT
 document.getElementById("announcement").innerText =
   "🚀 New companies are hiring! Apply before deadlines.";
 
-// 🧠 TIPS
+//  TIPS
 const tips = [
   "Complete your profile",
   "Upload your CV",
@@ -45,7 +45,7 @@ tips.forEach(tip => {
 });
 
 // ==========================
-// 📦 JOB SYSTEM (UPDATED)
+//  JOB SYSTEM (UPDATED)
 // ==========================
 
 let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
@@ -61,7 +61,7 @@ if (jobs.length === 0) {
   `;
 }
 
-// 🔁 LOOP JOBS (UPDATED UI)
+//  LOOP JOBS (UPDATED UI)
 jobs.forEach(job => {
   const card = document.createElement("div");
 
@@ -78,14 +78,14 @@ jobs.forEach(job => {
     <p class="text-sm font-semibold text-indigo-600 mt-1">₹${job.package}</p>
   `;
 
-  // 👉 OPEN MODAL
+  //  OPEN MODAL
   card.addEventListener("click", () => openModal(job));
 
   container.appendChild(card);
 });
 
 // ==========================
-// 🔥 MODAL SYSTEM (NEW)
+//  MODAL SYSTEM (NEW)
 // ==========================
 
 const modal = document.getElementById("jobModal");
@@ -141,7 +141,7 @@ applyBtnModal.addEventListener("click", () => {
 });
 
 // ==========================
-// 📄 CV UPLOAD (ADVANCED)
+//  CV UPLOAD (ADVANCED)
 // ==========================
 
 const uploadBtn = document.getElementById("uploadBtn");

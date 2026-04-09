@@ -16,10 +16,10 @@ export const users = [
     role: "student",
     username: "102",
     password: "123",
-    name: "Aman Verma",
-    dept: "IT",
+    name: "Dishika Zodape",
+    dept: "CO",
     cgpa: 7.8,
-    pfp: "https://randomuser.me/api/portraits/men/32.jpg"
+    pfp: new URL("../data/assets/Dishika zodape.jpeg", import.meta.url).href
   },
 
   {
@@ -27,10 +27,10 @@ export const users = [
     role: "student",
     username: "103",
     password: "123",
-    name: "Sneha Patil",
-    dept: "ENTC",
+    name: "JANHAVI CHAVRE",
+    dept: "CO",
     cgpa: 8.9,
-    pfp: new URL("../data/assets/khushi.jpeg", import.meta.url).href
+    pfp: new URL("../data/assets/Janhavichavre.jpeg", import.meta.url).href
   },
 
   {
@@ -38,10 +38,10 @@ export const users = [
     role: "student",
     username: "104",
     password: "123",
-    name: "Rohit Sharma",
-    dept: "CSE",
+    name: "REVTI RAMTEKE",
+    dept: "CO",
     cgpa: 7.2,
-    pfp: "https://randomuser.me/api/portraits/men/45.jpg"
+    pfp: new URL("../data/assets/RevtiRamteke.jpeg", import.meta.url).href
   },
 
   {
@@ -49,10 +49,10 @@ export const users = [
     role: "student",
     username: "105",
     password: "123",
-    name: "Pooja Singh",
+    name: "SHRADDHA BHIVGADE",
     dept: "MECH",
     cgpa: 8.1,
-    pfp: "https://randomuser.me/api/portraits/women/68.jpg"
+    pfp: new URL("../data/assets/ShraddhaBhivgade.jpeg", import.meta.url).href
   },
 
   {
@@ -60,10 +60,10 @@ export const users = [
     role: "student",
     username: "106",
     password: "123",
-    name: "Yash Gupta",
+    name: "TANISHKA PATIL",
     dept: "CIVIL",
     cgpa: 6.9,
-    pfp: "https://randomuser.me/api/portraits/men/70.jpg"
+    pfp: new URL("../data/assets/Tanishkapatil.jpeg", import.meta.url).href
   },
 
   {
@@ -110,14 +110,14 @@ export const users = [
     pfp: "https://randomuser.me/api/portraits/men/22.jpg"
   },
 
-  // 🔐 ADMIN
+//  ADMIN
   {
     id: 100,
     role: "admin",
     username: "admin",
-    password: "admin123",
-    name: "Rahate",
-    pfp: "https://randomuser.me/api/portraits/men/10.jpg"
+    password: "123",
+    name: "PRASHANT RAHATE",
+    pfp: new URL("../data/assets/RahateSir.jpeg", import.meta.url).href
   }
 
 ];
