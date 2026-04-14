@@ -1,19 +1,33 @@
 console.log("ADMIN JS RUNNING");
 
 // ===============================
-// AUTH
+// AUTH + USERS
 // ===============================
-import { users } from "../data/userdata.js";
+import { users as defaultUsers } from "../data/userdata.js";
 
+// signup users
+let signupUsers = JSON.parse(localStorage.getItem("signupStudents")) || [];
+
+// merge (no duplicates)
+let allUsers = [...defaultUsers];
+
+signupUsers.forEach(u => {
+  if (!allUsers.find(user => user.username === u.username)) {
+    allUsers.push(u);
+  }
+});
+
+// current user
 const user = JSON.parse(localStorage.getItem("loggedInUser"));
-document.getElementById("adminPfp").src = user.pfp;
 
 if (!user || user.role !== "admin") {
   window.location.href = "../index.html";
 }
 
+// profile UI
 document.getElementById("adminName").innerText = "Hi, " + user.name;
 document.getElementById("adminNameCard").innerText = user.name;
+document.getElementById("adminPfp").src = user.pfp;
 
 // ===============================
 // DATA
@@ -25,20 +39,20 @@ let applications = JSON.parse(localStorage.getItem("applications")) || [];
 // STATS
 // ===============================
 function updateStats() {
-  const students = users.filter(u => u.role === "student");
+  const students = allUsers.filter(u => u.role === "student");
 
   document.getElementById("totalJobs").innerText = jobs.length;
   document.getElementById("totalApplications").innerText = applications.length;
   document.getElementById("totalStudents").innerText = students.length;
 
-  // BIG DASHBOARD CARDS
+  // big cards
   document.getElementById("totalJobsBig").innerText = jobs.length;
   document.getElementById("totalApplicationsBig").innerText = applications.length;
   document.getElementById("totalStudentsBig").innerText = students.length;
 }
 
 // ===============================
-// TAB SWITCHING (MAIN FEATURE)
+// TAB SWITCHING
 // ===============================
 const tabs = document.querySelectorAll(".tabBtn");
 const views = document.querySelectorAll(".view");
@@ -46,7 +60,6 @@ const views = document.querySelectorAll(".view");
 tabs.forEach(btn => {
   btn.addEventListener("click", () => {
 
-    // UI highlight
     tabs.forEach(b => b.classList.remove("bg-blue-600", "text-white"));
     tabs.forEach(b => b.classList.add("bg-white"));
 
@@ -54,10 +67,7 @@ tabs.forEach(btn => {
 
     const target = btn.dataset.tab;
 
-    // hide all
     views.forEach(v => v.classList.add("hidden"));
-
-    // show selected
     document.getElementById(target + "View").classList.remove("hidden");
   });
 });
@@ -76,7 +86,6 @@ function renderJobs() {
 
   jobs.forEach(job => {
     const card = document.createElement("div");
-    const studentDept = user.dept;
 
     card.className = `
       border p-4 rounded-lg flex justify-between items-center
@@ -102,18 +111,17 @@ function renderJobs() {
 // ===============================
 // ADD JOB
 // ===============================
-
 document.getElementById("jobForm").addEventListener("submit", (e) => {
   e.preventDefault();
-// GET SELECTED DEPARTMENTS
-const deptChecks = document.querySelectorAll(".deptCheck");
-const selectedDepts = [];
 
-deptChecks.forEach(cb => {
-  if (cb.checked) {
-    selectedDepts.push(cb.value);
-  }
-});
+  const deptChecks = document.querySelectorAll(".deptCheck");
+  const selectedDepts = [];
+
+  deptChecks.forEach(cb => {
+    if (cb.checked) {
+      selectedDepts.push(cb.value);
+    }
+  });
 
   const newJob = {
     id: Date.now(),
@@ -121,7 +129,7 @@ deptChecks.forEach(cb => {
     role: document.getElementById("role").value.trim(),
     package: document.getElementById("package").value.trim(),
     description: document.getElementById("description").value.trim(),
-    eligibleDepts: selectedDepts 
+    eligibleDepts: selectedDepts
   };
 
   jobs.push(newJob);
@@ -155,7 +163,7 @@ document.getElementById("jobsContainer").addEventListener("click", (e) => {
 });
 
 // ===============================
-//  APPLICATIONS
+// APPLICATIONS
 // ===============================
 function renderApplications() {
   const container = document.getElementById("applicationsContainer");
@@ -168,7 +176,7 @@ function renderApplications() {
 
   applications.forEach(app => {
     const job = jobs.find(j => j.id === app.jobId);
-    const student = users.find(u => u.id === app.userId);
+    const student = allUsers.find(u => u.id === app.userId);
 
     const cv = localStorage.getItem("cv_" + app.userId);
 
@@ -177,41 +185,41 @@ function renderApplications() {
     card.className = "bg-white rounded-xl p-4 shadow hover:shadow-lg transition";
 
     card.innerHTML = `
-  <div class="flex justify-between items-center">
+      <div class="flex justify-between items-center">
 
-    <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3">
 
-      <img src="${student?.pfp || ''}" 
-           class="w-10 h-10 rounded-full object-cover border">
+          <img src="${student?.pfp || ''}" 
+               class="w-10 h-10 rounded-full object-cover border">
 
-      <div>
-        <h4 class="font-semibold text-blue-600">
-          ${student?.name || "Unknown"}
-        </h4>
-        <p class="text-sm text-gray-600">
-          ${job?.company || "Deleted"} - ${job?.role || ""}
-        </p>
+          <div>
+            <h4 class="font-semibold text-blue-600">
+              ${student?.name || "Unknown"}
+            </h4>
+            <p class="text-sm text-gray-600">
+              ${job?.company || "Deleted"} - ${job?.role || ""}
+            </p>
+          </div>
+
+        </div>
+
+        <div class="flex gap-2">
+          ${
+            cv
+              ? `<a href="${cv}" target="_blank"
+                  class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
+                  CV
+                </a>`
+              : `<span class="text-xs text-gray-400">No CV</span>`
+          }
+
+          <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded">
+            Applied
+          </span>
+        </div>
+
       </div>
-
-    </div>
-
-    <div class="flex gap-2">
-      ${
-        cv
-          ? `<a href="${cv}" target="_blank"
-              class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
-              CV
-            </a>`
-          : `<span class="text-xs text-gray-400">No CV</span>`
-      }
-
-      <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded">
-        Applied
-      </span>
-    </div>
-
-  </div>
-`;
+    `;
 
     container.appendChild(card);
   });

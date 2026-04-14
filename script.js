@@ -1,38 +1,37 @@
-import { users } from "./data/userdata.js";
+import { users as defaultUsers } from "../data/userdata.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("loginForm");
+// load signup users
+let signupUsers = JSON.parse(localStorage.getItem("signupStudents")) || [];
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+// merge both
+let users = [...defaultUsers, ...signupUsers];
 
-    const role = document.getElementById("role").value;
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
+document.getElementById("loginForm").addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    if (!role || !username || !password) {
-      alert("Please fill all fields");
-      return;
-    }
+  const role = document.getElementById("role").value;
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-    const user = users.find(
-      (u) =>
-        u.role === role &&
-        u.username === username &&
-        u.password === password
-    );
+  if (!role || !username || !password) {
+    alert("Fill all fields");
+    return;
+  }
 
-    if (!user) {
-      alert("Invalid credentials");
-      return;
-    }
+  const user = users.find(
+    u => u.role === role && u.username === username && u.password === password
+  );
 
-    localStorage.setItem("loggedInUser", JSON.stringify(user));
+  if (!user) {
+    alert("Invalid credentials");
+    return;
+  }
 
-    if (user.role === "student") {
-      window.location.href = "./student/dashboard.html";
-    } else if (user.role === "admin") {
-      window.location.href = "./admin/admindashboard.html";
-    }
-  });
+  localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+  if (user.role === "student") {
+    window.location.href = "./student/dashboard.html";
+  } else {
+    window.location.href = "./admin/admindashboard.html";
+  }
 });

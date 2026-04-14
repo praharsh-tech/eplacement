@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200">
+
+  <div class="bg-white p-8 rounded-2xl shadow-xl w-[400px] space-y-4">
+
+    <h2 class="text-xl font-bold text-center text-blue-600">Student Sign Up</h2>
+
+    <input id="name" placeholder="Full Name" class="w-full p-2 border rounded"/>
+    <input id="username" placeholder="Enrollment No" class="w-full p-2 border rounded"/>
+    <input id="password" type="password" placeholder="Password" class="w-full p-2 border rounded"/>
+
+    <select id="dept" class="w-full p-2 border rounded">
+      <option value="">Select Dept</option>
+      <option>CSE</option>
+      <option>IT</option>
+      <option>ENTC</option>
+      <option>MECH</option>
+      <option>CIVIL</option>
+      <option>CO</option>
+    </select>
+
+    <input id="cgpa" placeholder="CGPA" class="w-full p-2 border rounded"/>
+    <input id="dob" type="date" class="w-full p-2 border rounded"/>
+
+    <select id="gender" class="w-full p-2 border rounded">
+      <option value="">Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+    </select>
+
+    <input type="file" id="photoInput" class="text-sm"/>
+
+    <button id="signupBtn"
+      class="w-full bg-blue-600 text-white py-2 rounded">
+      Sign Up
+    </button>
+
+    <p class="text-sm text-center">
+      Already have account? <a href="index.html" class="text-blue-600">Login</a>
+    </p>
+
+  </div>
+
+<script type="module">
+import { users as defaultUsers } from "../data/userdata.js";
+
+let signupStudents = JSON.parse(localStorage.getItem("signupStudents")) || [];
+
+let photoData = "";
+
+// IMAGE
+document.getElementById("photoInput").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.onload = () => photoData = reader.result;
+  reader.readAsDataURL(file);
+});
+
+// SIGNUP
+document.getElementById("signupBtn").addEventListener("click", () => {
+
+  const name = document.getElementById("name").value.trim();
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const dept = document.getElementById("dept").value;
+  const cgpa = document.getElementById("cgpa").value;
+  const dob = document.getElementById("dob").value;
+  const gender = document.getElementById("gender").value;
+
+  if (!name || !username || !password || !dept || !cgpa || !dob || !gender) {
+    alert("Fill all fields");
+    return;
+  }
+
+  // DUPLICATE CHECK (BOTH)
+  if (
+    defaultUsers.find(u => u.username === username) ||
+    signupStudents.find(u => u.username === username)
+  ) {
+    alert("User already exists");
+    return;
+  }
+
+  const newUser = {
+    id: Date.now(),
+    role: "student",
+    username,
+    password,
+    name,
+    dept,
+    cgpa: Number(cgpa),
+    dob,
+    gender,
+    pfp: photoData || ""
+  };
+
+  signupStudents.push(newUser);
+  localStorage.setItem("signupStudents", JSON.stringify(signupStudents));
+
+  // AUTO LOGIN
+  localStorage.setItem("loggedInUser", JSON.stringify(newUser));
+
+  window.location.href = "../student/dashboard.html";
+});
+</script>
+
+</body>
+</html>
