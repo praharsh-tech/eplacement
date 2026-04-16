@@ -13,21 +13,30 @@
          z-[9999] pointer-events-none bg-black text-white">
 </div>
 
-  <!-- NAVBAR -->
-  <header class="bg-white/70 backdrop-blur shadow-lg px-8 py-4 flex justify-between items-center sticky top-0 z-50">
-    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
-      E-Placement Portal
+ <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-slate-700 px-8 py-4 flex justify-between items-center sticky top-0 z-50 shadow-xl">
+
+  <!-- LEFT -->
+  <div>
+    <h1 class="text-xl font-bold text-blue-400 tracking-wide">
+      NIT POLLYTECNIC
     </h1>
+    <p class="text-xs text-gray-400">E-Placement System</p>
+  </div>
 
-    <div class="flex items-center gap-5">
-      <span id="welcome" class="text-sm text-gray-600 font-medium"></span>
+  <!-- RIGHT -->
+  <div class="flex items-center gap-5">
 
-      <button id="logoutBtn"
-        class="bg-red-500 text-white px-4 py-1.5 rounded-lg shadow-md transform hover:scale-105 hover:bg-red-600 transition duration-200">
-        Logout
-      </button>
-    </div>
-  </header>
+    <span id="welcome" class="text-sm text-gray-300 font-medium"></span>
+
+    <button id="logoutBtn"
+      class="bg-red-600 text-white px-4 py-1.5 rounded-lg shadow-md 
+             hover:bg-red-700 transition duration-200">
+      Logout
+    </button>
+
+  </div>
+
+</header>
 
   <!-- MAIN -->
   <div class="max-w-7xl mx-auto mt-8 grid grid-cols-12 gap-6 px-4">

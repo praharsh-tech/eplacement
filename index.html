@@ -2,70 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login | E-Placement Portal</title>
+  <title>Login | NIT Smart ERP Portal</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 h-screen flex items-center justify-center">
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen text-white">
 
-  <!-- Card -->
-  <div class="w-full max-w-md bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl p-8">
+  <!-- 🔥 HEADER (MATCHED THEME) -->
+  <header class="bg-white/5 backdrop-blur-lg border-b border-white/10 px-8 py-4 flex items-center gap-4 shadow-lg">
 
-    <!-- Title -->
-    <h2 class="text-3xl font-bold text-white text-center mb-2">
-      Welcome Back
-    </h2>
-    <p class="text-gray-400 text-center mb-6">
-      Login to your account
-    </p>
+    <img src="./data/assets/images.png" alt="NIT Logo"
+      class="h-12 w-12 object-contain rounded-full border border-white/20">
 
-    <!-- Form -->
-    <form id="loginForm" class="space-y-5">
+    <div>
+      <h1 class="font-bold text-lg tracking-wide">NIT Polytechnic, Nagpur</h1>
+      <p class="text-sm text-gray-400"> E-Placement Portal</p>
+    </div>
 
-      <!-- Role -->
-      <div>
-        <label class="text-gray-300 text-sm">Select Role</label>
-        <select id="role"
-          class="w-full mt-1 p-3 rounded-lg bg-slate-800 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option value="">Choose role</option>
-          <option value="student">🎓 Student</option>
-          <option value="admin">🛠 Admin</option>
-        </select>
-      </div>
+  </header>
 
-      <!-- Username -->
-      <div>
-        <label class="text-gray-300 text-sm">Enrollment / Username</label>
-        <input id="username" type="text" placeholder="Enter your ID"
-          class="w-full mt-1 p-3 rounded-lg bg-slate-800 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-      </div>
+  <!-- 🔥 CENTER -->
+  <div class="flex items-center justify-center py-12 px-4">
 
-      <!-- Password -->
-      <div>
-        <label class="text-gray-300 text-sm">Password</label>
-        <input id="password" type="password" placeholder="Enter password"
-          class="w-full mt-1 p-3 rounded-lg bg-slate-800 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-      </div>
+    <!-- CARD -->
+    <div class="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-8">
 
-      <!-- Button -->
-      <button
-        class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 p-3 rounded-lg text-white font-semibold shadow-lg">
-        Login
-      </button>
-      <p class="text-sm text-center mt-3">
-  Don't have an account?
-  <a href="signup.html" class="text-blue-600">Sign Up</a>
-</p>
+      <!-- TITLE -->
+      <h2 class="text-3xl font-bold text-center mb-2 tracking-wide">
+        Welcome Back
+      </h2>
 
-      <!-- Error -->
-      <p id="error" class="text-red-400 text-sm text-center"></p>
+      <p class="text-gray-400 text-center mb-6 text-sm">
+        Login to continue your journey 🚀
+      </p>
 
-    </form>
+      <!-- FORM -->
+      <form id="loginForm" class="space-y-5">
 
-    <!-- Footer -->
-    <p class="text-gray-500 text-xs text-center mt-6">
-      © 2026 E-Placement Portal
-    </p>
+        <!-- ROLE -->
+        <div>
+          <label class="text-sm text-gray-300">Select Role</label>
+          <select id="role"
+            class="w-full mt-1 p-3 rounded-lg bg-slate-800/80 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            <option value="">Choose role</option>
+            <option value="student">🎓 Student</option>
+            <option value="admin">🛠 Admin</option>
+          </select>
+        </div>
+
+        <!-- USERNAME -->
+        <div>
+          <label class="text-sm text-gray-300">Enrollment / Username</label>
+          <input id="username" type="text" placeholder="Enter your ID"
+            class="w-full mt-1 p-3 rounded-lg bg-slate-800/80 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"/>
+        </div>
+
+        <!-- PASSWORD -->
+        <div>
+          <label class="text-sm text-gray-300">Password</label>
+          <input id="password" type="password" placeholder="Enter password"
+            class="w-full mt-1 p-3 rounded-lg bg-slate-800/80 text-white border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"/>
+        </div>
+
+        <!-- BUTTON -->
+        <button
+          class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 p-3 rounded-lg font-semibold shadow-lg hover:scale-[1.02]">
+          Login
+        </button>
+
+        <!-- SIGNUP -->
+        <p class="text-sm text-center text-gray-400">
+          Don't have an account?
+          <a href="signup.html" class="text-blue-400 hover:underline">Sign Up</a>
+        </p>
+
+        <!-- ERROR -->
+        <p id="error" class="text-red-400 text-sm text-center"></p>
+
+      </form>
+
+      <!-- FOOTER -->
+      <p class="text-gray-500 text-xs text-center mt-6">
+        © 2026 NIT Smart ERP Portal
+      </p>
+
+    </div>
 
   </div>
 
